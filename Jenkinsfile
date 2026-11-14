@@ -26,9 +26,9 @@ pipeline {
 
         stage('Reports') {
             steps {
-                publisHTML(target: [
-                    reportDir: 'src/test/java/resources/ExtendReport'
-                    reportFiles: 'ExtentReport.html'
+                publishHTML(target: [
+                    reportDir: 'src/test/java/resources/ExtendReport',
+                    reportFiles: 'ExtentReport.html',
                     reportName: 'HTML Spark Report'
                 ])
             }
@@ -37,7 +37,7 @@ pipeline {
 
     post {
         always {
-            archieveArtifacts artifacts: '**/src/test/java/resources/ExtendReport/*.html', fingerprint: true
+            archiveArtifacts artifacts: '**/src/test/java/resources/ExtendReport/*.html', fingerprint: true
             junit 'target/surefire-reports/*.xml'
         }
         success {
