@@ -152,11 +152,22 @@ public class BaseClass {
         }
 
         // Navigate to URL
-        try {
-            String URL = prop.getProperty("url");
-            getWebDriver().get(URL);
-        } catch (Exception e) {
-            System.out.println("Failed to Navigate to the URL: " + e.getMessage());
+        // try {
+        //     String URL = prop.getProperty("url");
+        //     getWebDriver().get(URL);
+        // } catch (Exception e) {
+        //     System.out.println("Failed to Navigate to the URL: " + e.getMessage());
+        // }
+
+        // Implicit Wait
+		int implicitWait = Integer.parseInt(prop.getProperty("ImplicitWait"));
+        boolean seleniumGrid = Boolean.parseBoolean(System.getProperty("seleniumGrid", prop.getProperty("seleniumGrid")));
+        getWebDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
+        if(seleniumGrid){
+            getWebDriver().get(prop.getProperty("url_grid"));
+        }
+        else{
+            getWebDriver().get(prop.getProperty("url_local"));
         }
     }
 
